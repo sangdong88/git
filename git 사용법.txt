@@ -21,8 +21,10 @@ git init 으로 초기화 해준다. 해당 폴더에 .git파일이 생성된 �
 
 # remote 저장소에 있는 file pull (내용 가져오기)
 컨트롤 쉬프트 P 누르고 Git: pull 선택
+Source control 오른쪽 점 3개 pull 선택
 
 # remote 저장소에 파일 push 하기 (내용 업로드 하기)
+컨트롤 쉬프트 P 누르고 Git: push 선택
 Source control 오른쪽 점 3개 push 선택
 
 # 그 외 git bash 명령어들
