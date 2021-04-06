@@ -1,0 +1,38 @@
+# 2021-04-06 화
+
+1. git 을 설치 한다. 설치 path는 %appdata / Local / user *** 경로로 해줘야 vscode에서 자동인식 가능하다.
+2. vscode에선 유용한 기능인 gitlens와 git histoty extention을 설치 해준다.
+3. vscode에서 .git 파일 경로를 어디로 하는지가 상당히 중요하다
+    왜냐면 필요 이상의 git파일들이 stage change 를 기다리고 있기 때문이다 불필요. 5k 이상의 git 파일들이
+    그래서 특정 폴더 (내가 git 파일을 관리하고 커밋할 폴더를 지정해주는 것이 좋다.)
+
+# git bash 에서 git hub 지우는 법
+.git 이 있는 경로로 cd를 통해 이동한다.
+ls -a 명령으로 .git 파일이 있는지 확인한다.
+rm -rf .git 명령으로 .git 파일 삭제
+원하는 경로로 이동한다.
+git init 으로 초기화 해준다. 해당 폴더에 .git파일이 생성된 것을 확인한다
+
+# vscode에서 github랑 연동하는 방법
+1. 컨트롤 쉬프트 P를 누르고 Git add remote 선택
+2. URL은 github에 지정된 repository의 URL 복사 붙여넣기
+3. remote name은 origin으로 입력 해준다.
+4. github에서 연동 할건지 아이디 비밀 번호 확인 작업 후에 연동
+
+# remote 저장소에 있는 file pull (내용 가져오기)
+컨트롤 쉬프트 P 누르고 Git: pull 선택
+
+# 그 외 git bash 명령어들
+
+git config --global user.name "Sangdong Lee" / 유저이름 등록
+git config --global user.email "leehlo@naver.com" / 이메일 등록
+git config --global -l / config --global 리스트 확인
+git stauts / git 상태 확인
+git add 파일이름 / 가상저장소로 stage change
+git commit -m "커밋 메시지" / 가상저장소의 파일을 repositoty로 이동 -m 은 커밋 메시지 추가
+git log / history log 확인
+git remote -v / 원격저장소 목록 ? 확인
+git remote rm 이름 / 원격저장소 이름 삭제
+
+
+ 
