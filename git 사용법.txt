@@ -37,5 +37,4 @@ git log / history log 확인
 git remote -v / 원격저장소 목록 ? 확인
 git remote rm 이름 / 원격저장소 이름 삭제
 
-222
  
