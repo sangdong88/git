@@ -1,4 +1,3 @@
-# 2021-04-06 화
 
 1. git 을 설치 한다. 설치 path는 %appdata / Local / user *** 경로로 해줘야 vscode에서 자동인식 가능하다.
 2. vscode에선 유용한 기능인 gitlens와 git histoty extention을 설치 해준다.
@@ -19,37 +18,23 @@ git init 으로 초기화 해준다. 해당 폴더에 .git파일이 생성된 �
 3. remote name은 origin으로 입력 해준다.
 4. github에서 연동 할건지 아이디 비밀 번호 확인 작업 후에 연동
 
-# git bash에서 github랑 remote repository 연동하는 방법
-1. git remote add origin [Github URL] / 원격 저장소 연결 정보 추가
-
-
-# remote 저장소에 있는 file pull (내용 가져오기)
-컨트롤 쉬프트 P 누르고 Git: pull 선택
-Source control 오른쪽 점 3개 pull 선택
-
-# remote 저장소에 파일 push 하기 (내용 업로드 하기)
-컨트롤 쉬프트 P 누르고 Git: push 선택
-Source control 오른쪽 점 3개 push 선택
-
-# 그 외 git bash 명령어들
-
-git config --global user.name "Sangdong Lee" / 유저이름 등록 / 변경
-git config --global user.email "leehlo@naver.com" / 이메일 등록 / 변경
-git config --global -l / config --global 리스트 확인
-cat ~/.gitconfig   / gitconfig 내용 확인
-vi ~/.gitconfig    / vi 에디터로 gitconfig 파일 열기
-vi editor :wq 
-
 Ctrl + L / 커맨드창 화면 초기화
 Ctrl + A / 명령어 맨 앞으로 커서 이동
 Ctrl + E / 명령어 맨 뒤로 커서 이동
-
 cd [이동경로] / change directory
 mkdir [경로/디렉터리명] / make directory
 git rm -rf [경로/삭제할디렉토리 혹은 파일이름] / remove
 dir / 목록 조회 
 ls / list
 cat [파일명] / 파일 내용 조회
+
+### config ###
+git config --global user.name "Sangdong Lee" / 유저이름 등록 / 변경
+git config --global user.email "leehlo@naver.com" / 이메일 등록 / 변경
+git config --global -l / config --global 리스트 확인
+cat ~/.gitconfig   / gitconfig 내용 확인
+vi ~/.gitconfig    / vi 에디터로 gitconfig 파일 열기
+vi editor :wq 
 
 ### remote ###
 git init / 리모트 저장소 초기화 현재 경로에 .git 파일 생성 됨
@@ -102,7 +87,8 @@ git checkout -b [브랜치명] / 새 브랜치 생성과 사용 할 브랜치 �
 git init으로 각기 다른 디렉터리를 초기화 할 수 있다.
 또한 리모트 저장소도 디렉터리별로 각기다른 github 폴더를 지정할 수 있다.
 
-
+### pull error 발생시 ###
+git pull -rebase origin [브랜치이름]master / 원격 저장소 [github]에 있는 내용 pull
 
 
 
