@@ -1,0 +1,101 @@
+# vs code virtual 환경 setting
+>pip3 install virtualenv
+>virtualenv 경로디렉터리
+>맥 source 디렉터리명_venv/bin/activate
+>Win 디렉터리명_venv/bin/activate
+
+### Django command ###
+
+Step #1 Project & App 생성
+
+1-1 django-admin startproject 프로젝트명 / 프로젝트 생성
+1-2 >>> 프로젝트 디렉터리로 이동 후
+1-3 django-admin startapp 앱명 / 앱 생성
+1-4 앱 생성 후에 앱 안에 Templates폴더를 따로 생성 해준다. django의 기본 구조인 MVT Model, View, Template
+django에서 사용하는 template 엔진이 각 앱의 Templates를 기본적으로 바라보고 있기 때문에 바로 사용 가능하다.
+1-5 프로젝트 settings.py에서 INSTALLED_APPS에 생성한 앱을 추가해준다. 추가해줘야 그앱의 기능을 불러올 수 있음.
+? 프로젝트 vs 앱 ?
+커뮤니티가 1개의 프로젝트고, 그 안에 여러가지 앱 들이 포함 되어있다.
+앱은 프로젝트의 어떤 기능을 분리 해서 관리 하게 된다.
+
+# autopep8 정적 분석도구 파이썬 코드를 시작하지 않아도 미리 작성 가이드를 주는 프로그램.
+
+Step #2 fc_user앱의 Model 만들기
+
+2-1 class Fcuser(models.Model) models.Model 상속받은 Fcuser 클래스 생성
+2-2 각 필드 들의 객체 지정 {username, password, registered_dttm}
+2-3 class Fcuser안에 class Meta 클래스를 사용하여 db_table 명 지정, settings.py 설치된 앱들과 구분하기 위해 지정하여 사용
+2-4 터미널에서 manage.py 파일이 있는 경로로 이동
+2-5 > python manage.py makemigrations  /  model.py 에 있는 내용 대로 migrations 폴더에 model 설정을 가진 initial.py 파일이 생성 된다.
+2-6 > python manage.py migrate  /  settings에 INSTALLED_APPS들이 사용하는 테이블을 자동으로 갖는 db.sqlite3 생성 - [변경 내용 db에 반영]
+> sqlite3 .\db.sqlite3  /  db 파일 실행
+> sqlite> .tables  /  table 항목 표기
+> sqlite> .schema fastcampus_fcuser
+    CREATE TABLE IF NOT EXISTS "fastcampus_fcuser" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "password" varchar(64) NOT NULL, "registered_dttm" datetime NOT NULL, "username" varchar(32) NOT NULL);
+    id 자동생성, password 64자리, registered_dttm datetime, username 32자리
+    # model.py 에 field 내용이 바뀔 때 마다 makemigrations해주면 0002 auto 파일 생성 [변경된 내용] 되고, migrate 해주어 db에 반영한다.schema
+
+Step #3 Django admin [admin page 세팅]
+
+3-1 > D:\coding\python\all\ch3\fc_community> python .\manage.py runserver / 서버 실행
+3-2 > D:\coding\python\all\ch3\fc_community> python .\manage.py creatsuperuser / super계정 생성
+3-3 fc_user/admin 안에서
+> from django.contrib import admin
+> from .models import Fcuser / models.py 안에 Fcuser 클래스 import
+> class FcuserAdmin(admin.ModelAdmin):
+>     list_display = ('username', 'password') / fc_user 앱안에서 내용을 어떻게 표기 할 것을 선정. username paswword 
+>admin.site.register(Fcuser, FcuserAdmin) / django.contrib.admin.site에서 register 함수 호출 admin 화면에서 fc_user라는 앱 등록, 앱안에 fc_user모델이 표기
+3-4 fc_user/models.py안에서 class Meta: 클래스안에
+> verbose_name_plural = '패스트캠퍼스 사용자' / 추가 하여 fc_user라는 앱이름을 패스트캠퍼스 사용자로 변경
+# 기본적으로 복수 s가 붙기 때문에 이를 삭제하기 위해 verbose_name_plural을 사용.
+3-5 fc_user/models.py 에서 
+> def __str__(self) / __str__내장 함수는 클래스가 문자열로 변환 될때 어떻게 변환할지 정하는 함수
+>    return self.username / 클래스 변환된 이름을 username으로 받겠다.
+
+Step #4 Django Templates 
+
+4-1 fc_user/templates/register.html 생성 
+4-2 크게 <html> 안에 <head>와 <body> 2개 카테고리로 구성.
+4-3 <head>작성 https://getbootstrap.com/docs/5.0/getting-started/introduction/ 에서 <head>에 들어갈 내용으로, 
+    CSS copy, JS-Bundle copy, JS-seperate copy, Starter template에서 Meta tag copy한다. 기본적인 부트스트랩 사용 준비 끝
+4-4 <body> https://getbootstrap.com/docs/5.0/forms/overview/ overview form copy
+4-5 추가 수정 작업 必 by html or CSS.
+
+Step #5 Django View 
+
+5-1 fc_user/views.py 안에서 register함수 작성.
+> def register(request):
+>   return render(request, 'register.html') # template 폴터를 기본적으로 바라보고 있다.
+    request 변수가 들어오면 render 함수가 return되어 template안에 register.html를 호출
+    [render함수는 template를 불러오는 함수]
+5-2 Project/urls.py 안에서 
+> from django.urls import path, include 추가
+> path('fc_user/', include('fc_user.urls'))를 추가 해준다. 사이트주소/fc_user 아래로 오는 모든 url들은 fc_user.urls에서 관리 하겠다는 코드를 추가해준다.
+5-3 fc_user/urls.py 안에서 
+> from . import views 추가, 현재 경로의 views 를 import
+> path('register/', views.register) 추가, 사이트주소/fc_user/register 경로를 views.register 함수와 연결
+    다시 말해, 사이트주소/fc_user/register 경로로 들어오면 views.register 함수 실행
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
