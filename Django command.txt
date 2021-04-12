@@ -158,8 +158,51 @@ STATICFILES_DIRS = [
 # 쿠키와 세션
 https://doooyeon.github.io/2018/09/10/cookie-and-session.html
 
+로그인 기능을 위하여 session을 사용한다.
+HTTP 통신은 비연결통신 지향 즉, 통신을 계속 연결하고 있지 않는다. 그래서 트래픽이 가볍다
+client의 request가 server에 전달 되고 response 되면 HTTP 통신은 끝이 난다. 어떠한 정보도 저장하고 있지 않는다.
+그래서 로그인 시 session을 사용하는 것.
+session이란 ?
+일정 시간 동안 같은 브라우저로부터 들어오는 요청을 하나의 상태로 보고 그 상태를 유지하는 기술이다.
+즉, 웹 브라우저를 통해 서버에 접속한 이후부터 브라우저를 종료할 때까지 유지되는 상태이다.
+
+웹브라우저가 서버에 요청
+서버가 해당 웹브라우저(클라이언트)에 유일한 ID(Session ID)를 부여함
+서버가 응답할 때 HTTP 헤더(Set-Cookie)에 Session ID를 포함해서 전송
+쿠키에 Session ID를 JSESSIONID 라는 이름으로 저장
+ Set−Cookie: JSESSIONID=xslei13f
+웹브라우저는 이후 웹브라우저를 닫기까지 다음 요청 때 부여된 Session ID가 담겨있는 쿠키를 HTTP 헤더에 넣어서 전송
+ Cookie: JSESSIONID=xslei13f
+서버는 세션 ID를 확인하고, 해당 세션에 관련된 정보를 확인한 후 응답
+세션도 쿠키를 사용하여 값을 주고받으며 클라이언트의 상태 정보를 유지한다.
+즉, 상태 정보를 유지하는 수단은 쿠키 이다.
 
 
+### 로그인 기능 (session) ###
+- Model 은 있으니 Template과 view를 수정 해준다.
+우선 Tempalte 먼저 작업 해주면, 기존의 register의 html을 복사. <body>에서 로그인에 필요한 username과 password 부분만 사용.
+
+<View> views.py 에서 
+def login(request):  # 함수 생성
+    return render(request, 'login.html') # return으로 render 를 login.html 연결
+
+그 다음은 request를 어디서 받을 것인지 지정 해줘야 한다. 어디서 ? urls.py에서
+path('login/', views.login),   // 홈페이지에서 login/ 아래의 주소로 들어오는 요청에 대해서 views의 login 함수 사용
+그 말은 login 함수에서 request는 [login/ 아래의 주소]가 되고 login.html의 render가 return 된다.
+즉, views와 urls은 한 링크라고 보면 될 것 같다. 항상 같이 생각하는 연습을 하자
+
+RDBMS의 Table에서 가장 먼저 고려하는, 개별 행을 검색하는 데 사용할 수있는 고유 한 키(Primary Key)에 대해 정리할 생각입니다. 
+기본키(Primary Key)는 시스템이 한 테이블에 있는 Row가 다른 Row와 구별되는 무언가를 가져야 하므로 이 역할을 수행할 수 있습니다.
+기본키는 한 Row마다 유일해야 하며 NULL이 될 수 없어야 합니다. 변경 될 수 있는 경우가 없어야 한다.
+위 조건을 만족하는 1개이상의 값을 primary_key로 설정할 수 있다.
+
+기본키가 있어야 하는 이유
+기본키가 없으면 일관성 없는 데이터가 반복적으로 쌓일 수 있기 때문에 쿼리 속도가 느리고, 
+원하지 않는 정보 조회 결과를 가져올 수 있습니다. 관계형 데이터베이스에서는 반드시 각 행이 고유하게 식별되어야 합니다. 
+이 규칙을 위반하면 더 이상 관계형이 아니며 데이터에서 모호함이 생길 수 있습니다. 
+아마 다른 사용자가 테이블을 참조할 경우 끔찍한 일이 발생할 수도 있겠네요. 
+이 부분은 중복 행을 생성하는 조인(JOIN) Query와 같은 부분애서 재앙과 같은 일입니다. 
+그리고 대부분의 경우 Primary Key를 기반으로 테이블의 행을 검색하거나 결합합니다.
 
 
 
