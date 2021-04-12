@@ -103,7 +103,7 @@ Step #5 Django View
         fc_user = Fcuser (
             username=username,
             useremail=useremail,
-            password=make_password // 비밀번호 암호화
+            password=make_password(password) // 비밀번호 암호화
         fc_user.save() // 저장
         // Fcuser 클래스 안에 변수들에서 선언된 변수들을 fc_user에 튜플로 저장.
 5-5 
@@ -152,6 +152,11 @@ STATICFILES_DIRS = [
 ] # BASE_DIR은 프로젝트 경로이기 때문에 그안에 static 폴더다
 4. bootswatch 에서 theme 다운로드 후 static 폴더로 복사
 5.  <link rel="stylesheet" href="/static/bootstrap.min.css"/> 경로를 static 폴더에서 사용
+
+
+
+# 쿠키와 세션
+https://doooyeon.github.io/2018/09/10/cookie-and-session.html
 
 
 
