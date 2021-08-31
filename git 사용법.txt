@@ -99,7 +99,15 @@ git init으로 각기 다른 디렉터리를 초기화 할 수 있다.
 또한 리모트 저장소도 디렉터리별로 각기다른 github 폴더를 지정할 수 있다.
 
 ### pull error 발생시 ###
-git pull -rebase origin [브랜치이름]master / 원격 저장소 [github]에 있는 내용 pull
+git pull --rebase origin [브랜치이름]master / 원격 저장소 [github]에 있는 내용 pull
+
+
+1) git branch --set-upstream-to=origin/master master
+2) git pull
+
+
+
+출처: https://wdevp.tistory.com/31 [책도 읽는 개발자님의 블로그]
 
 
 ### 과거의 버전으로 돌아가는 방법 ###
