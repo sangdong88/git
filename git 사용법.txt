@@ -1,3 +1,17 @@
+푸쉬 안될 때 !!!!
+git push -u orgin +master
+
+새로 시작 할 때 설정하는 방법
+1. git init 해당폴더에서 .git 파일생성
+
+git config --global user.name "Sangdong Lee" / 유저이름 등록 / 변경
+git config --global user.email "leehlo@naver.com" / 이메일 등록 / 변경
+git config --global -l / config --global 리스트 확인
+git remote add origin https: 깃허브 주소
+vscode 컨트롤 쉬프트 p
+git add remote 에서 origin 리모트 이름 있다고 하면 master
+계정 연동
+
 
 1. git 을 설치 한다. 설치 path는 %appdata / Local / user *** 경로로 해줘야 vscode에서 자동인식 가능하다.
 2. vscode에선 유용한 기능인 gitlens와 git histoty extention을 설치 해준다.
