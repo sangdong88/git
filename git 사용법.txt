@@ -1,3 +1,8 @@
+Pull 안될때 !!!
+git fetch --all
+git reset --hard origin/master
+git pull origin master
+
 푸쉬 안될 때 !!!!
 git pull orgin master // 혹시 필요하면 사전에 pull 먼저 해보기
 git push -u orgin +master
